@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CanvasLife.js Sample</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+	<script src="canvas.js"></script>
+
+<style>
+canvas {
+	float: left;
+	margin: 5px;
+	border: solid 1px #888;
+	border-radius: 5px;
+}
+pre {
+	float: left;
+	margin: 5px;
+}
+h3 {
+	padding-top: 30px;
+}
+</style>
+
+</head>
+<body>
+<h1>CanvasLife.js Sample</h1>
+
+書いてない部分は妄想で補え
+
+<h3>line (線)</h3>
+<canvas id="sample-line" width=300 height=300></canvas>
+<script>
+$(document).ready( function() {
+	var canvas = new Canvas($("#sample-line"));
+	canvas.line({
+		"points": [[50,50], [100,50], [100,100], [150,100], [150,150]]
+	});
+});
+</script>
+<pre>
+var canvas = new Canvas($("#sample-line"));
+canvas.line({
+	"points": [[50,50], [100,50], [100,100], [150,100], [150,150]]
+});
+</pre>
+
+
+
+<div style='clear:both'>
+<h3>polygonal (多角形)</h3>
+<canvas id="sample-polygonal" width=300 height=300></canvas>
+<script>
+$(document).ready( function() {
+	var canvas = new Canvas($("#sample-polygonal"));
+	canvas.polygonal({
+		"points" : [[50,150], [150,150], [100,100]], 
+		"type" : "fs",
+		"strokeColor": "#000000",
+		"strokeWidth": 2,
+		"fillColor": "#ff0000"
+	});
+});
+</script>
+<pre>
+var canvas = new Canvas($("#sample-polygonal"));
+canvas.polygonal({
+	"points" : [[50,150], [150,150], [100,100]], 
+	"type" : "fs",
+	"strokeColor": "#000000",
+	"strokeWidth": 2,
+	"fillColor": "#ff0000"
+});
+
+// "type" : "fs" の部分を"s"にすると線(stroke)だけ、
+// "f"にすると塗りつぶし(fill)だけになる
+</pre>
+
+
+<div style='clear:both'>
+<h3>circle (円)</h3>
+<canvas id="sample-circle" width=300 height=300></canvas>
+<script>
+$(document).ready( function() {
+	var canvas = new Canvas($("#sample-circle"));
+	canvas.circle({
+		"center": [100,100],
+		"radius": 50,
+		"type": "fs",
+		"strokeColor": "#000000",
+		"strokeWidth": 2,
+		"fillColor": "#ff0000"
+	});
+});
+</script>
+<pre>
+var canvas = new Canvas($("#sample-circle"));
+canvas.circle({
+	"center": [100,100],
+	"radius": 50,
+	"type": "fs",
+	"strokeColor": "#000000",
+	"strokeWidth": 2,
+	"fillColor": "#ff0000"
+});
+</pre>
+
+
+</body>
+</html>
