@@ -25,6 +25,7 @@ class Canvas
 		return this.jqo[0].getContext("2d")
 	
 	# ブラウザ上におけるCanvas要素の四隅の位置を取得
+	# クリックイベント等の作成時に必要
 	offset: ->
 		tmp = this.jqo.offset()
 		this.left = tmp.left
@@ -32,7 +33,8 @@ class Canvas
 		this.right = tmp.left + this.width
 		this.bottom = tmp.top + this.height
 	
-	@draw: (ctx, type) ->
+	# Pathを描写
+	@drawPath: (ctx, type) ->
 		if type == "s"
 			ctx.stroke()
 		if type == "f"
@@ -66,7 +68,7 @@ class Canvas
 			else
 				ctx.fillStyle = style.fillColor
 
-	# ストローク (閉じない)
+	# 折れ線 (閉じないストローク)
 	line: (args) ->
 		ctx = this.ctx()
 		this.setCtxStyle(ctx, args)
@@ -81,7 +83,7 @@ class Canvas
 		this.polylinePath(ctx, args.points)
 		ctx.closePath()
 
-		Canvas.draw(ctx, args.type)
+		Canvas.drawPath(ctx, args.type)
 
 	# 円
 	circle: (args) ->
@@ -91,7 +93,7 @@ class Canvas
 		ctx.beginPath()
 		if args.center[0] && args.center[1] && args.radius && args.type
 			ctx.arc(args.center[0], args.center[1], args.radius, 0, Math.PI*2)
-			Canvas.draw(ctx, args.type)
+			Canvas.drawPath(ctx, args.type)
 		else
 			throw new Error("CanvasLife Error: Invalid Parameters")
 	
