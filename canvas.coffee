@@ -8,8 +8,11 @@ class Canvas
 		# jQuery object
 		this.jqo = jqo
 
-		this.width = Number(jqo.attr("width"))
-		this.height = Number(jqo.attr("height"))
+		this.width = this.jqo.width()
+		this.height = this.jqo.height()
+		this.jqo.attr("width", this.width)
+		this.jqo.attr("height", this.height)
+
 		this.offset()
 
 		# strokeの色、fillの色のデフォルト

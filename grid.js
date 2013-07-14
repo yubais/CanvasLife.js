@@ -7,8 +7,10 @@ Canvas = (function() {
 
   function Canvas(jqo, defaultStyle) {
     this.jqo = jqo;
-    this.width = Number(jqo.attr("width"));
-    this.height = Number(jqo.attr("height"));
+    this.width = this.jqo.width();
+    this.height = this.jqo.height();
+    this.jqo.attr("width", this.width);
+    this.jqo.attr("height", this.height);
     this.offset();
     this["default"] = {};
     if (defaultStyle) {
@@ -193,8 +195,8 @@ Grid = (function(_super) {
     self = this;
     return this.jqo.on(event, function(e) {
       var x, y;
-      x = Math.floor((e.clientX - self.left) / self.xstep);
-      y = Math.floor((e.clientY - self.top) / self.ystep);
+      x = Math.floor((e.pageX - self.left) / self.xstep);
+      y = Math.floor((e.pageY - self.top) / self.ystep);
       return callback(x, y);
     });
   };

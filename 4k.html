@@ -3,19 +3,13 @@
 <head>
 	<meta charset=utf-8 />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>フルHDオセロ (80x45)</title>
+	<title>4Kオセロ (160x90)</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 	<script src="othello.js"></script>
 <style>
 #othello-board{
-	width:1920px; 
-	height:1080px;
-}
-#menu {
-	position: fixed;
-	top: 0px;
-	right: 0px;
-	background-color: rgba(255,255,255,0.5);
+	width :3840px; 
+	height:2160px;
 }
 </style>
 </head>
@@ -23,40 +17,19 @@
 
 <div>
 	<span style='font-size:2em;font-weight:bold'>
-		フルHDオセロ
+		4Kオセロ
 	</span> by <a href='http://twitter.com/yubais' target=_blank>@yubais</a>
-</div>
-
-<div id='menu'>
 	<span id='console' style='font-weight:bold;padding-left:20px'></span>
 	<button id='pass'>パス</button>
-	<div id='to4k' style='display:none;text-align:right;font-weight:bold'>
-		<a href='4k.html' target=_blank>4Kオセロに移動</a>
-	</div>
 </div>
-
 
 <canvas id='othello-board'></canvas>
-<div>
-	<script type="text/javascript"><!--
-	google_ad_client = "ca-pub-5819668657787008";
-	/* atf */
-	google_ad_slot = "4035367541";
-	google_ad_width = 728;
-	google_ad_height = 90;
-	//-->
-	</script>
-	<script type="text/javascript"
-	src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-	</script>
-</div>
-
 <script>
 // メイン
 $(document).ready( function() {
 	args = {
-		 "cols": 80
-		,"rows": 45
+		 "cols": 160
+		,"rows": 90
 	};
 	var othello = new Othello($("#othello-board"), args);
 	$("#pass").click( function() {

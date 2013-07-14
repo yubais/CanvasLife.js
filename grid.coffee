@@ -64,8 +64,8 @@ class Grid extends Canvas
 	on: (event, callback) ->
 		self = this
 		this.jqo.on event, (e) ->
-			x = Math.floor((e.clientX - self.left) / self.xstep)
-			y = Math.floor((e.clientY - self.top)  / self.ystep)
+			x = Math.floor((e.pageX - self.left) / self.xstep)
+			y = Math.floor((e.pageY - self.top)  / self.ystep)
 			callback(x,y)
 
 	# これ作っといたほうが綺麗に書ける

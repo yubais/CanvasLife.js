@@ -78,7 +78,6 @@ class Othello extends Grid
 		# 石が置けるかどうかの判定
 		if this.checkStone(x,y) == false
 			# 置けない場合のコールバックをするべき？
-			console.log "そこに石は置けない"
 			return false
 
 		this.putStone(x,y,this.phase)
@@ -150,25 +149,30 @@ class Othello extends Grid
 	# --------------------------------------------------
 	# 手番を反転
 	changePhase: ->
-		console.log this.phase
 		this.phase = 3 - this.phase if this.phase > 0
 		this.phase = 1 if this.phase == 0
 
 		this.countStone()
 
-		if this.count.total >= 64
-			if this.count[1] > this.count[2]
-				$("#console").text("黒番の勝利 | 黒#{this.count[1]}, 白#{this.count[2]}")
-			else if this.count[1] < this.count[2]
-				$("#console").text("白番の勝利 | 黒#{this.count[1]}, 白#{this.count[2]}")
-			else
-				$("#console").text("引き分け | 黒#{this.count[1]}, 白#{this.count[2]}")
+		if this.count.total >= (this.cols * this.rows)
 			this.phase = 3
-			
-		if this.phase == 1
-			$("#console").text("黒番です | 黒#{this.count[1]}, 白#{this.count[2]}")
-		if this.phase == 2
-			$("#console").text("白番です | 黒#{this.count[1]}, 白#{this.count[2]}")
+		
+		if this.count[1] == 0
+			this.phase = 3
+		if this.count[2] == 0
+			this.phase = 3
+
+		if setMessage?
+			args = {
+				phase: this.phase
+				count: this.count
+			}
+			setMessage(args)
+
+	# --------------------------------------------------
+	# パス
+	pass: ->
+		this.changePhase()
 
 	# --------------------------------------------------
 	# 石を数える
@@ -183,7 +187,6 @@ class Othello extends Grid
 		for x in [-1 .. this.cols]
 			for y in [-1 .. this.rows]
 				this.count[this.map[x][y]]++
-				#this.count[point]++
 
 		this.count.total = this.count[1] + this.count[2]
 

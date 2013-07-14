@@ -8,8 +8,10 @@ Canvas = (function() {
 
   function Canvas(jqo, defaultStyle) {
     this.jqo = jqo;
-    this.width = Number(jqo.attr("width"));
-    this.height = Number(jqo.attr("height"));
+    this.width = this.jqo.width();
+    this.height = this.jqo.height();
+    this.jqo.attr("width", this.width);
+    this.jqo.attr("height", this.height);
     this.offset();
     this["default"] = {};
     if (defaultStyle) {
@@ -194,8 +196,8 @@ Grid = (function(_super) {
     self = this;
     return this.jqo.on(event, function(e) {
       var x, y;
-      x = Math.floor((e.clientX - self.left) / self.xstep);
-      y = Math.floor((e.clientY - self.top) / self.ystep);
+      x = Math.floor((e.pageX - self.left) / self.xstep);
+      y = Math.floor((e.pageY - self.top) / self.ystep);
       return callback(x, y);
     });
   };
@@ -277,7 +279,6 @@ Othello = (function(_super) {
   Othello.prototype.setStone = function(x, y) {
     var d, _i, _len;
     if (this.checkStone(x, y) === false) {
-      console.log("そこに石は置けない");
       return false;
     }
     this.putStone(x, y, this.phase);
@@ -350,7 +351,7 @@ Othello = (function(_super) {
   };
 
   Othello.prototype.changePhase = function() {
-    console.log(this.phase);
+    var args;
     if (this.phase > 0) {
       this.phase = 3 - this.phase;
     }
@@ -358,22 +359,26 @@ Othello = (function(_super) {
       this.phase = 1;
     }
     this.countStone();
-    if (this.count.total >= 64) {
-      if (this.count[1] > this.count[2]) {
-        $("#console").text("黒番の勝利 | 黒" + this.count[1] + ", 白" + this.count[2]);
-      } else if (this.count[1] < this.count[2]) {
-        $("#console").text("白番の勝利 | 黒" + this.count[1] + ", 白" + this.count[2]);
-      } else {
-        $("#console").text("引き分け | 黒" + this.count[1] + ", 白" + this.count[2]);
-      }
+    if (this.count.total >= (this.cols * this.rows)) {
       this.phase = 3;
     }
-    if (this.phase === 1) {
-      $("#console").text("黒番です | 黒" + this.count[1] + ", 白" + this.count[2]);
+    if (this.count[1] === 0) {
+      this.phase = 3;
     }
-    if (this.phase === 2) {
-      return $("#console").text("白番です | 黒" + this.count[1] + ", 白" + this.count[2]);
+    if (this.count[2] === 0) {
+      this.phase = 3;
     }
+    if (typeof setMessage !== "undefined" && setMessage !== null) {
+      args = {
+        phase: this.phase,
+        count: this.count
+      };
+      return setMessage(args);
+    }
+  };
+
+  Othello.prototype.pass = function() {
+    return this.changePhase();
   };
 
   Othello.prototype.countStone = function() {
