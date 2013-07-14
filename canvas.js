@@ -32,7 +32,7 @@ Canvas = (function() {
     return this.bottom = tmp.top + this.height;
   };
 
-  Canvas.draw = function(ctx, type) {
+  Canvas.drawPath = function(ctx, type) {
     if (type === "s") {
       ctx.stroke();
     }
@@ -48,6 +48,10 @@ Canvas = (function() {
   Canvas.prototype.polylinePath = function(ctx, points) {
     var p, _i, _len, _results;
     ctx.beginPath();
+    if ((points != null) === false) {
+      throw new Error("CanvasLife Error: missing of points");
+      return false;
+    }
     _results = [];
     for (_i = 0, _len = points.length; _i < _len; _i++) {
       p = points[_i];
@@ -86,12 +90,11 @@ Canvas = (function() {
 
   Canvas.prototype.polygonal = function(args) {
     var ctx;
-    console.log(args);
     ctx = this.ctx();
     this.setCtxStyle(ctx, args);
     this.polylinePath(ctx, args.points);
     ctx.closePath();
-    return Canvas.draw(ctx, args.type);
+    return Canvas.drawPath(ctx, args.type);
   };
 
   Canvas.prototype.circle = function(args) {
@@ -101,8 +104,9 @@ Canvas = (function() {
     ctx.beginPath();
     if (args.center[0] && args.center[1] && args.radius && args.type) {
       ctx.arc(args.center[0], args.center[1], args.radius, 0, Math.PI * 2);
-      return Canvas.draw(ctx, args.type);
+      return Canvas.drawPath(ctx, args.type);
     } else {
+      console.log(args);
       throw new Error("CanvasLife Error: Invalid Parameters");
     }
   };

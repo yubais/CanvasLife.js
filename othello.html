@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Grid.js Sample</title>
+	<title>おせろ</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<script src="grid.js"></script>
+	<script src="othello.js"></script>
+<style>
+#name-black {
+	background-color: #000000;
+	color: #ffffff;
+}
+#name-white {
+	background-color: #ffffff;
+	color: #000000;
+}
+</style>
 </head>
 <body>
 
 <canvas id='sample-grid' width=500 height=500></canvas>
+<div id='console'></div>
 
 <script>
 $(document).ready( function() {
@@ -15,8 +26,7 @@ $(document).ready( function() {
 		 "cols": 8
 		,"rows": 8
 	};
-	var grid = new Grid($("#sample-grid"), args);
-	grid.grid()
+	var othello = new Othello($("#sample-grid"), args);
 });
 </script>
 

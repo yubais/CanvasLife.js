@@ -48,6 +48,9 @@ class Canvas
 
 	polylinePath: (ctx, points) ->
 		ctx.beginPath()
+		if points? == false
+			throw new Error("CanvasLife Error: missing of points")
+			return false
 		for p in points
 			ctx.lineTo(p[0], p[1])
 	
@@ -77,7 +80,6 @@ class Canvas
 	
 	# 多角形
 	polygonal: (args) ->
-		console.log args
 		ctx = this.ctx()
 		this.setCtxStyle(ctx, args)
 		this.polylinePath(ctx, args.points)
@@ -95,6 +97,7 @@ class Canvas
 			ctx.arc(args.center[0], args.center[1], args.radius, 0, Math.PI*2)
 			Canvas.drawPath(ctx, args.type)
 		else
+			console.log args
 			throw new Error("CanvasLife Error: Invalid Parameters")
 	
 	# Canvas全体を消去
