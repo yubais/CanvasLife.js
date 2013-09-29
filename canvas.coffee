@@ -107,4 +107,12 @@ class Canvas
 	allClear: () ->
 		ctx = this.ctx()
 		ctx.clearRect(0,0,this.width,this.height)
+	
+	# イベント取得
+	on: (event, callback) ->
+		self = this
+		this.jqo.on event, (e) ->
+			x = e.pageX - self.left
+			y = e.pageY - self.top
+			callback(x,y)
 
